@@ -1,6 +1,6 @@
-* {
+/* * {
   box-sizing: border-box;
-}
+} */
 body {
   margin: 10px;
   background-color: #ececec;
@@ -8,6 +8,7 @@ body {
 
 #wrapper {
   display: flex;
+  position: relative;
 /*  width: 1300px;
   height: 800px;
   background-color: white;
@@ -16,42 +17,41 @@ body {
 
 #gameScreen {
   width: 1300px;
-  height: 700px;
-  background-color: white;
+  height: 900px;
+  /* background-color: white; */
   border: 1px solid black;
-  border-bottom: none;
+  /* border-bottom: none; */
   position: relative;
-  background-image: url("img/bg.jpg");
+  background-image: url('../img/bg.jpg');
 }
 
-.info {
-  top: 0;
-}
-
+ /* .info {
+  top: 0 !important;
+} */
+/*
 .score {
   top: 0;
 }
 
 .timer {
   top:0 !important;
-}
+} */
 
 #score {
-  padding: 20px;
-  width: 250px;
-  height: 1000px;
+  /* padding: 20px; */
+  width: 280px;
+  height: 900px;
   background-color: white;
   border: 1px solid black;
 }
 
 #time {
-  padding: 20px;
-  width: 50px;
-  height: 50px;
-  right: 0;
-  top: 0;
+  /* padding: 20px; */
+  width: 280px;
+  height: 900px;
   background-color: white;
   border: 1px solid black;
+  position: relative;
 }
 
 #duck {

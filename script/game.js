@@ -1,7 +1,8 @@
 var duck = document.getElementById('duck');
 var duckScore = document.getElementById('duckScore');
 var hunterScore = document.getElementById('hunterScore');
-const timer = document.getElementById('timer');
+var resetButton = document.getElementById('reset');
+var timer = document.getElementById('timer');
 
 duckScore.textContent = 'turbo claqué'
 
@@ -36,7 +37,7 @@ function duckPosition(x,y) {
    duckYLocation += y
    if (duckXLocation > 1250) {duckXLocation = 1250}
    if (duckXLocation < 0) {duckXLocation = 0}
-   if (duckYLocation > 650) {duckYLocation = 650}
+   if (duckYLocation > 850) {duckYLocation = 850}
    if (duckYLocation < 0) {duckYLocation = 0}
    duck.style.transform = 'translate('+duckXLocation+'px,'+duckYLocation+'px)'
 }
@@ -68,14 +69,14 @@ window.addEventListener("keydown", function(event) {
 // update score for the duck player every 10sec
 
 var tets = setInterval(function(){
-    // console.log(l);
-    // l--;
-    this.
-    timer.textContent = time
-    // if(l == -1) {
-    //     console.log('t');
-    //     clearInterval(tets);
-    // }
+    console.log(l);
+    l--;
+   //  this.
+   //  timer.textContent = time
+    if(l == -1) {
+        console.log('t');
+        clearInterval(tets);
+    }
 },1000);
 
 
@@ -86,7 +87,13 @@ function myTimer() {
       time -= 1
       timer.textContent = time+'s';}
 
-
+function reset() {
+   time = 120
+   hunterScoreCount = 0
+   hunterScore.textContent = 0
+   duckScore = 0
+   duckScore.textContent = 0
+}
 
 /* scoring part */
 // hunterScore.textContent = 0

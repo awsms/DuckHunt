@@ -11,15 +11,15 @@
       <h1>Score :</h1>
       Duck: <span id="duckScore">0</span> <br>
       Hunter: <span id="hunterScore">0</span> <br>
-      <button id="reset">Reset</button>
+      <button id="reset" onclick="reset()">Reset</button>
     </div>
     <div id="gameScreen">
-      <div id="canard"></div>
-<img id="duck" src="img/duck.png" alt="" onclick="hunterHit()"></div>
+  <img id="duck" src="img/duck.png" alt="" onclick="hunterHit()"></div>
+    <div id="time" class="info timer">
+      Remaining time: <span id="timer">120s</span>
+    </div>
   </div>
-  <div id="time" class="info timer">
-    Remaining time: <span id="timer">120s</span>
-  </div>
+
   <script src="script/game.js"></script>
 </body>
 </html>
