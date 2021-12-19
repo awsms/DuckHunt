@@ -6,16 +6,19 @@
   <link rel="stylesheet" href="script/style.css">
 </head>
 <body>
-  <div id="container">
-    <div id="gameScreen">
-      <div id="canard"></div>
-<img id="duck" src="img/duck.png" alt=""></div>
-    <div id="score">
-      Remaining time: <span id="timer">120s</span> <br>
-      Duck: <span id="duckScore"></span> <br>
-      Hunter: <span id="hunterScore"></span> <br>
+  <div id="wrapper">
+    <div id="score" class="info score">
+      <h1>Score :</h1>
+      Duck: <span id="duckScore">0</span> <br>
+      Hunter: <span id="hunterScore">0</span> <br>
       <button id="reset">Reset</button>
     </div>
+    <div id="gameScreen">
+      <div id="canard"></div>
+<img id="duck" src="img/duck.png" alt="" onclick="hunterHit()"></div>
+  </div>
+  <div id="time" class="info timer">
+    Remaining time: <span id="timer">120s</span>
   </div>
   <script src="script/game.js"></script>
 </body>

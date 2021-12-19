@@ -6,16 +6,17 @@ body {
   background-color: #ececec;
 }
 
-#container {
-  width: 1300px;
+#wrapper {
+  display: flex;
+/*  width: 1300px;
   height: 800px;
   background-color: white;
-  margin: auto;
+  margin: auto;*/
 }
 
 #gameScreen {
   width: 1300px;
-  height: 620px;
+  height: 700px;
   background-color: white;
   border: 1px solid black;
   border-bottom: none;
@@ -23,10 +24,32 @@ body {
   background-image: url("img/bg.jpg");
 }
 
+.info {
+  top: 0;
+}
+
+.score {
+  top: 0;
+}
+
+.timer {
+  top:0 !important;
+}
+
 #score {
   padding: 20px;
-  width: 1300px;
-  height: 180px;
+  width: 250px;
+  height: 1000px;
+  background-color: white;
+  border: 1px solid black;
+}
+
+#time {
+  padding: 20px;
+  width: 50px;
+  height: 50px;
+  right: 0;
+  top: 0;
   background-color: white;
   border: 1px solid black;
 }
