@@ -49,15 +49,15 @@ window.addEventListener("keydown", function(event) {
    if (event.code === "ArrowDown"){
       // move the duck 50px down when arrow down key is pressed
       // duckY(50);
-      duckPosition(0,50);
+      duckPosition(0,16);
    } else if (event.code === "ArrowUp"){
-      duckPosition(0,-50)
+      duckPosition(0,-16)
       // duckY(-50);
    } else if (event.code === "ArrowLeft"){
-      duckPosition(-50,0)
+      duckPosition(-16,0)
       // duckX(-50);
    } else if (event.code === "ArrowRight"){
-      duckPosition(50,0)
+      duckPosition(16,0)
       // duckX(50);
    }
 });
@@ -67,25 +67,43 @@ window.addEventListener("keydown", function(event) {
   
 
 // update score for the duck player every 10sec
-
+duckScoreCount = 0
 var tets = setInterval(function(){
-    console.log(l);
-    l--;
+   //  console.log(l);
+   //  l--;
    //  this.
    //  timer.textContent = time
-    if(l == -1) {
-        console.log('t');
-        clearInterval(tets);
-    }
-},1000);
+   //  if(l == -1) {
+   //      console.log('t');
+   //      clearInterval(tets);
+   //  }
+   duckScoreCount += 10
+   duckScore.textContent = duckScoreCount
+},10000);
 
 
 
-var tim = setInterval(myTimer ,1000);
+function whoWins(duckScoreCount,hunterScoreCount) {
+   if (duckScoreCount>hunterScoreCount) {
+      alert("le canneton a gagné")
+   } else if (duckScoreCount<hunterScoreCount) {
+      alert("le chasseur a gagné")
+   } else {
+      alert('nique ta tante')
+   }
+}
+
+
 var time = 120
-function myTimer() {
-      time -= 1
-      timer.textContent = time+'s';}
+var interval = setInterval(function(){
+   time -= 1
+   timer.textContent = time+'s';
+
+   if (time == 0) {
+      clearInterval(interval)
+      whoWins(duckScoreCount,hunterScoreCount)
+   }
+} ,1000);
 
 function reset() {
    time = 120
