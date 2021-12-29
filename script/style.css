@@ -3,7 +3,7 @@
 } */
 body {
   margin: 10px;
-  background-color: #ececec;
+  background-color: black;
 }
 
 #wrapper {
@@ -16,8 +16,8 @@ body {
 }
 
 #gameScreen {
-  width: 1300px;
-  height: 900px;
+  width: 1450px;
+  height: 875px;
   /* background-color: white; */
   border: 1px solid black;
   /* border-bottom: none; */
@@ -39,24 +39,25 @@ body {
 
 #score {
   /* padding: 20px; */
-  width: 280px;
-  height: 900px;
-  background-color: white;
+  width: 250px;
+  height: 875px;
+  background-color: grey;
   border: 1px solid black;
 }
 
 #time {
   /* padding: 20px; */
-  width: 280px;
-  height: 900px;
-  background-color: white;
+  width: 250px;
+  height: 875px;
+  background-color: grey;
   border: 1px solid black;
   position: relative;
 }
 
 #duck {
-  position: absolute;
-  background-color: yellow;
-  width: 50px;
-  height: 50px;
+  /* position: absolute; */
+  /* background-color: yellow; */
+  width: 100px;
+  height: 100px;
+  /* right: 100 !important */
 }
