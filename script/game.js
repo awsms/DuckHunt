@@ -87,8 +87,12 @@ function duckPosition(x,y) {
    if (duckXLocation < 0) {duckXLocation = 0}
    if (duckYLocation > 825) {duckYLocation = 825}
    if (duckYLocation < 0) {duckYLocation = 0}
-   duck.style.transform = 'translate('+duckXLocation+'px,'+duckYLocation+'px)'
-}
+   // if (y > 0) {duck.style.transform = 'scaleX(-1)'}
+   if (x<0) {
+      duck.style.transform = 'translate('+duckXLocation+'px,'+duckYLocation+'px) scaleX(-1)'
+   } else {
+      duck.style.transform = 'translate('+duckXLocation+'px,'+duckYLocation+'px)'
+}}
 
 
 
@@ -171,7 +175,6 @@ setInterval(() => {
       duckPosition(9,0)
    } else if (currentKeyPressed.left) {
       duckPosition(-9,0)
-      duck.style.transform = 'scaleX(-1)'
    }
 }, intervalDuck);
 
@@ -234,4 +237,4 @@ function hunterHit() {
    hunterScore.textContent = (hunterScoreCount += 1)
 }
 
-currentKeyPressed.left ? duck.style.transform = 'scaleX(-1)' : duck.style.transform = 'scaleX(1)'
+// currentKeyPressed.left ? duck.style.transform = 'scaleX(-1)' : duck.style.transform = 'scaleX(1)'
