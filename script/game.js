@@ -14,19 +14,6 @@ var duckLocation = {
    y: 0
 };
 
-var remainingTime = 120
-var timer = setInterval(function(){
-   remainingTime -= 1
-   timerElement.textContent = remainingTime+'s';
-   if (remainingTime == 0) {
-      clearInterval(timer)
-      whoWins(duckScoreCount,hunterScoreCount)
-      gameOver = true
-   }
-} ,1000);
-
-
-
 // variable indexant l'état de chaque touche du clavier répondant aux inputs 
 var currentKeyPressed = {
    up: false,
@@ -102,17 +89,33 @@ window.addEventListener("keydown", function(e) {
 }, false);
 
 function newGame() {
+
    // on génère une position aléatoire à chaque début de partie pour le canard
    duckLocation.x = Math.floor(Math.random() * (1300 - 1 + 1))
    duckLocation.y = Math.floor(Math.random() * (775 - 1 + 1))
    duck.style.transform = 'translate('+duckLocation.x+'px,'+duckLocation.y+'px)'
-   remainingTime = 120
-   timerElement.textContent = remainingTime+'s'
+   // remainingTime = 5
+   results.style.display = 'none'
+   timerElement.textContent = 120+'s'
    hunterScoreCount = 0
    hunterScore.textContent = 0
    duckScoreCount = 0
    duckScore.textContent = 0
    resetKeyPressed()
+   gameOver = false
+
+   var remainingTime = 120;
+   var timer = setInterval(function(){
+      remainingTime -= 1
+      timerElement.textContent = remainingTime+'s';
+      if (remainingTime == 0) {
+         clearInterval(timer)
+         whoWins(duckScoreCount,hunterScoreCount)
+         gameOver = true
+      }
+   } ,1000);
+   
+
 };
 
 newGame()
@@ -184,7 +187,7 @@ function whoWins(duckScoreCount,hunterScoreCount) {
       results.textContent = "Le chasseur a gagné !"
       // alert("le chasseur a gagné")
    } else {
-      alert('égalité')
+      results.textContent = "Égalité !"
    }
 };
 
