@@ -1,166 +1,84 @@
 const duck = document.getElementById('duck');
-const duckScore = document.getElementById('duckScore');
-const hunterScore = document.getElementById('hunterScore');
-const resetButton = document.getElementById('reset');
-const timer = document.getElementById('timer');
-const intervalDuck = 10
+const duckScore = document.getElementById('score-duck');
+const hunterScore = document.getElementById('score-hunter');
+// const resetButton = document.getElementById('button-reset');
+const newGameButton = document.getElementById('button-new_game');
+const timerElement = document.getElementById('timer');
+const results = document.getElementById('score-results');
+const intervalDuck = 8
 
 var gameOver = false
-duckScore.textContent = 'turbo claqué'
-// miroir le jpg quand presse gauche / droite
+
+// endroit où se trouve actuellement le canard sur les axes X/Y
+var duckLocation = {
+   x: 625,
+   y: 425
+}
+
+var remainingTime = 120
+var timer = setInterval(function(){
+   remainingTime -= 1
+   timerElement.textContent = remainingTime+'s';
+   if (remainingTime == 0) {
+      clearInterval(timer)
+      whoWins(duckScoreCount,hunterScoreCount)
+      gameOver = true
+   }
+} ,1000);
 
 
-// duck's location on x & y axes
-duckXLocation = 625
-duckYLocation = 425
-var duckX = duck.style.transform = 'translateX('+duckXLocation+'px)'
-var duckY = duck.style.transform = 'translateY('+duckYLocation+'px)'
 
-
-// onclick events part
-
-//document.getElementById('new_game').addEventListener('click', () => {
-//  newGame();
-//  });
-
-document.getElementById('duck').addEventListener('mousedown', () => {
-   hunterHit();
-});
-
-document.getElementById('reset').addEventListener('click', () => {
-   reset();
-});
-
+// variable indexant l'état de chaque touche du clavier répondant aux inputs 
 var currentKeyPressed = {
    up: false,
    down: false,
    left: false,
-   right: false
+   right: false,
+   shift: false
 } 
 
-var duckLookingRight = true
-
-// if (currentKeyPressed.left) {
-//    duckLookingRight = false
-// }
-
-// if (!duckLookingRight) {
-//    duck.style.transform = 'scaleX(-1)'
-// }
-
-
-
-
+//reset l'état de toutes les touches
 function resetKeyPressed() {
    currentKeyPressed.up = false,
    currentKeyPressed.down = false,
    currentKeyPressed.left = false,
-   currentKeyPressed.right = false
+   currentKeyPressed.right = false,
+   currentKeyPressed.shift = false
 }
 
-// modify duck's location on x axis
-// function duckX(distance) {
-//    duckXLocation += distance
-//    duck.style.transform = 'translate('+duckXLocation+'px,'+duckYLocation+'px)'
-   // if (!duckXLocation < 0) {
-   // duck.style.transform = 'translateX('+duckXLocation+'px)'
-   // }
-   // else duckXLocation = 0
-//   }
-
-// modify duck's location on y axis
-// function duckY(distance) {
-//    duckYLocation += distance
-//    duck.style.transform = 'translate('+duckXLocation+'px,'+duckYLocation+'px)'
-   // duck.style.transform = 'translateY('+duckYLocation+'px)'
-// }
-
-// update duck's location on both x & y axises
-// function updateDuck(duckXLocation,duckYLocation) {
-//
-// }
-
-function duckPosition(x,y) {
-   duckXLocation += x
-   duckYLocation += y
-   if (duckXLocation > 1350) {duckXLocation = 1350}
-   if (duckXLocation < 0) {duckXLocation = 0}
-   if (duckYLocation > 825) {duckYLocation = 825}
-   if (duckYLocation < 0) {duckYLocation = 0}
-   // if (y > 0) {duck.style.transform = 'scaleX(-1)'}
-   if (x<0) {
-      duck.style.transform = 'translate('+duckXLocation+'px,'+duckYLocation+'px) scaleX(-1)'
-   } else {
-      duck.style.transform = 'translate('+duckXLocation+'px,'+duckYLocation+'px)'
-}}
-
-
-
-
- 
-
-
-//input handling part
-// list of events happening when the key is hold down
+// évènements qui écoutent les inputs du clavier lorsqu'une touche est appuyée (déplacement du canard)
 window.addEventListener("keydown", function(e) {
-   if (e.code === "ArrowDown"){
+   // arrête de répondre aux inputs si la partie est terminée
+   if (gameOver) {
+      return
+   } else if (e.code === "ArrowDown"){
       // move the duck 50px down when arrow down key is pressed
-      // duckY(50);
-      // duckPosition(0,16);
       // when the down arrow is pressed, change the currentKeyPressed property for down key to true
       currentKeyPressed.down = true
-   } if (e.code === "ArrowUp"){
-      // duckPosition(0,-16)
+   } else if (e.code === "ArrowUp"){
       currentKeyPressed.up = true
-      // duckY(-50);
-   } if (e.code === "ArrowLeft"){
-      // duckPosition(-16,0)
+   } else if (e.code === "ArrowLeft"){
       currentKeyPressed.left = true
-      // duckX(-50);
-   } if (e.code === "ArrowRight"){
-      // duckPosition(16,0)
+   } else if (e.code === "ArrowRight"){
       currentKeyPressed.right = true
-      // duckX(50);
-   // } resetKeyPressed()
+   } else if (e.code === "ShiftLeft"){
+      currentKeyPressed.shift = true
 }});
-
-//list of events happening when the key is released
+ 
+// évènements qui écoutent les inputs du clavier lorsqu'une touche est relâchée
 window.addEventListener("keyup", function(e) {
    if (e.code === "ArrowDown"){
       // move the duck 50px down when arrow down key is pressed
-      // duckY(50);
-      // duckPosition(0,16);
       currentKeyPressed.down = false
    } if (e.code === "ArrowUp"){
-      // duckPosition(0,-16)
       currentKeyPressed.up = false
-      // duckY(-50);
    } if (e.code === "ArrowLeft"){
-      // duckPosition(-16,0)
       currentKeyPressed.left = false
-      // duckX(-50);
    } if (e.code === "ArrowRight"){
-      // duckPosition(16,0)
       currentKeyPressed.right = false
-      // duckX(50);
-   // } resetKeyPressed()
+   } else if (e.code === "ShiftLeft"){
+      currentKeyPressed.shift = false
 }});
-
-
-
-// setInterval(() => {
-//    (currentKeyPressed.up
-//       ? duckPosition(0,-16)
-//       : currentKeyPressed.down
-//          ? duckPosition(0,16)
-//          : duckPosition(0,0))
- 
-//    currentKeyPressed.left
-//       ? duckPosition(-16,0)
-//       : currentKeyPressed.right
-//          ? duckPosition(16,0)
-//          : duckPosition(0,0)
-// }, intervalDuck);
 
 
 setInterval(() => {
@@ -168,25 +86,72 @@ setInterval(() => {
       duckPosition(0,-9)
    } else if (currentKeyPressed.down) {
       duckPosition(0,9)
-   }
-
-
-   if (currentKeyPressed.right) {
+   } if (currentKeyPressed.right) {
       duckPosition(9,0)
    } else if (currentKeyPressed.left) {
       duckPosition(-9,0)
    }
 }, intervalDuck);
 
-function reset() {
-   time = 120
+window.addEventListener("keydown", function(e) {
+   if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+       e.preventDefault();
+   }
+}, false);
+
+function newGame() {
+   // on génère une position aléatoire à chaque début de partie pour le canard
+   duckLocation.x = Math.floor(Math.random() * (1300 - 1 + 1))
+   duckLocation.y = Math.floor(Math.random() * (775 - 1 + 1))
+   duck.style.transform = 'translate('+duckLocation.x+'px,'+duckLocation.y+'px)'
+   remainingTime = 120
+   timerElement.textContent = remainingTime+'s'
    hunterScoreCount = 0
    hunterScore.textContent = 0
-   duckScore = 0
    duckScore.textContent = 0
-   duckXLocation = 625
-   duckYLocation = 425
+   resetKeyPressed()
 }
+
+newGame()
+
+function duckPosition(x,y) {
+   if (currentKeyPressed.shift) {
+      x=x*1.3
+      y=y*1.3 }
+   duckLocation.x += x
+   duckLocation.y += y
+   // si le canard sort de l'écran de jeu, on le force à s'y mettre à l'extrémité
+   if (duckLocation.x > 1300) {
+      duckLocation.x = 1300
+   } if (duckLocation.x < 0) {
+      duckLocation.x = 0
+   } if (duckLocation.y > 775) {
+      duckLocation.y = 775
+   } if (duckLocation.y < 0) {
+      duckLocation.y = 0
+   } if (x<0) {
+      // scaleX(-1) permet de refléter le sprite du canard sur l'axe X     
+      duck.style.transform = 'translate('+duckLocation.x+'px,'+duckLocation.y+'px) scaleX(-1)'
+   // on utilise une fonction CSS qui permet de changer l'emplacement du canard sur les axes X/Y
+   // "translateX(x_px) translateY(y_px)" = "translate(x_px, y_px)"
+   } else {
+      duck.style.transform = 'translate('+duckLocation.x+'px,'+duckLocation.y+'px)'
+}}
+
+// var gunsound = new Audio('sfx/10 - SFX Gun Shot.mp3')
+
+// window.addEventListener('click', () => {
+//    gunsound.play();
+//  });
+
+// évènements qui écoutent les inputs de la souris et qui appellent une fonction selon l'endroit cliqué (tir sur canard ou reset du timer)
+duck.addEventListener('mousedown', () => {
+   hunterHit();
+});
+
+newGameButton.addEventListener('click', () => {
+   newGame();
+});
   
 
 // update score for the duck player every 10sec
@@ -197,37 +162,27 @@ var tets = setInterval(function(){
    //  this.
    //  timer.textContent = time
    //  if(l == -1) {
-   //      console.log('t');
-   //      clearInterval(tets);
+//      console.log('t');
+//      clearInterval(tets);
    //  }
    duckScoreCount += 10
    duckScore.textContent = duckScoreCount
-},10000);
+},1000);
 
 
 
 function whoWins(duckScoreCount,hunterScoreCount) {
+   results.style.display = "block"
    if (duckScoreCount>hunterScoreCount) {
-      alert("le canneton a gagné")
+      results.textContent = "Le canneton a gagné !"
+      // alert("le canneton a gagné")
    } else if (duckScoreCount<hunterScoreCount) {
-      alert("le chasseur a gagné")
+      results.textContent = "Le chasseur a gagné !"
+      // alert("le chasseur a gagné")
    } else {
-      alert('nique ta tante')
+      alert('égalité')
    }
 }
-
-
-var time = 120
-var timerInterval = setInterval(function(){
-   time -= 1
-   timer.textContent = time+'s';
-
-   if (time == 0) {
-      clearInterval(timerInterval)
-      whoWins(duckScoreCount,hunterScoreCount)
-      gameOver = True
-   }
-} ,1000);
 
 /* scoring part */
 // hunterScore.textContent = 0
@@ -236,5 +191,3 @@ function hunterHit() {
    // hunterScoreCount += 1
    hunterScore.textContent = (hunterScoreCount += 1)
 }
-
-// currentKeyPressed.left ? duck.style.transform = 'scaleX(-1)' : duck.style.transform = 'scaleX(1)'

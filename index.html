@@ -6,19 +6,21 @@
   <link rel="stylesheet" href="script/style.css">
 </head>
 <body>
-  <div id="wrapper">
-    <div id="score" class="info score">
+  <div id="wrapper" class="disableDragging">
+    <div id="score">
       <h1>Score :</h1>
-      Duck: <span id="duckScore">0</span> <br>
-      Hunter: <span id="hunterScore">0</span> <br>
-      <button id="reset">Reset</button>
+      Duck: <span id="score-duck">0</span> <br>
+      Hunter: <span id="score-hunter">0</span> <br>
+      <button id="button-new_game">New Game</button>
     </div>
     <div id="gameScreen">
-  <img id="duck" src="img/duck.png" alt=""></div>
-    <div id="time" class="info timer">
+  <img id="duck" draggable="false" src="img/duck.png" alt=""></div>
+    <div id="time">
       Remaining time: <span id="timer">120s</span>
     </div>
+    <div id="results"><span></span></div>
   </div>
+  
 
   <script src="script/game.js"></script>
 </body>
