@@ -115,6 +115,7 @@ function newGame() {
 newGame()
 
 function duckPosition(x,y) {
+   // le canard ira plus rapidement si shift gauche est enfoncée
    if (currentKeyPressed.shift) {
       x=x*1.3
       y=y*1.3 }
