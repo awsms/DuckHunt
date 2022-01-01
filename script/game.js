@@ -108,6 +108,7 @@ function newGame() {
    timerElement.textContent = remainingTime+'s'
    hunterScoreCount = 0
    hunterScore.textContent = 0
+   duckScoreCount = 0
    duckScore.textContent = 0
    resetKeyPressed()
 }
@@ -156,7 +157,7 @@ newGameButton.addEventListener('click', () => {
   
 
 // update score for the duck player every 10sec
-duckScoreCount = 0
+
 var tets = setInterval(function(){
    //  console.log(l);
    //  l--;
@@ -168,7 +169,7 @@ var tets = setInterval(function(){
    //  }
    duckScoreCount += 10
    duckScore.textContent = duckScoreCount
-},1000);
+},10000);
 
 
 
