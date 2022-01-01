@@ -76,6 +76,8 @@ body {
    right:625 !important;
    transform: translate(625px,425px);
    /* right: 100 !important */
+   /* background-color:rgb(0, 255, 0);opacity:1 */
+   background-color: none;
 }
 
 #results {

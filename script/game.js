@@ -5,15 +5,14 @@ const hunterScore = document.getElementById('score-hunter');
 const newGameButton = document.getElementById('button-new_game');
 const timerElement = document.getElementById('timer');
 const results = document.getElementById('score-results');
-const intervalDuck = 8
 
-var gameOver = false
+var gameOver = false;
 
 // endroit où se trouve actuellement le canard sur les axes X/Y
 var duckLocation = {
-   x: 625,
-   y: 425
-}
+   x: 0,
+   y: 0
+};
 
 var remainingTime = 120
 var timer = setInterval(function(){
@@ -35,7 +34,7 @@ var currentKeyPressed = {
    left: false,
    right: false,
    shift: false
-} 
+};
 
 //reset l'état de toutes les touches
 function resetKeyPressed() {
@@ -44,7 +43,7 @@ function resetKeyPressed() {
    currentKeyPressed.left = false,
    currentKeyPressed.right = false,
    currentKeyPressed.shift = false
-}
+};
 
 // évènements qui écoutent les inputs du clavier lorsqu'une touche est appuyée (déplacement du canard)
 window.addEventListener("keydown", function(e) {
@@ -80,6 +79,8 @@ window.addEventListener("keyup", function(e) {
       currentKeyPressed.shift = false
 }});
 
+// intervalle auquel est rafraîchi l'appel des fonctions du déplacement du canard
+// const intervalDuck = 8
 
 setInterval(() => {
    if (currentKeyPressed.up) {
@@ -91,7 +92,8 @@ setInterval(() => {
    } else if (currentKeyPressed.left) {
       duckPosition(-9,0)
    }
-}, intervalDuck);
+}, 8);
+
 
 window.addEventListener("keydown", function(e) {
    if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
@@ -111,7 +113,7 @@ function newGame() {
    duckScoreCount = 0
    duckScore.textContent = 0
    resetKeyPressed()
-}
+};
 
 newGame()
 
@@ -138,7 +140,7 @@ function duckPosition(x,y) {
    // "translateX(x_px) translateY(y_px)" = "translate(x_px, y_px)"
    } else {
       duck.style.transform = 'translate('+duckLocation.x+'px,'+duckLocation.y+'px)'
-}}
+}};
 
 // var gunsound = new Audio('sfx/10 - SFX Gun Shot.mp3')
 
@@ -184,7 +186,7 @@ function whoWins(duckScoreCount,hunterScoreCount) {
    } else {
       alert('égalité')
    }
-}
+};
 
 /* scoring part */
 // hunterScore.textContent = 0
@@ -192,4 +194,4 @@ hunterScoreCount = 0;
 function hunterHit() {
    // hunterScoreCount += 1
    hunterScore.textContent = (hunterScoreCount += 1)
-}
+};
