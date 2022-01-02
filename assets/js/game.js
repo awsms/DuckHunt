@@ -70,13 +70,13 @@ window.addEventListener("keyup", function(e) {
 // intervalle auquel est rafraîchi l'appel des fonctions du déplacement du canard
 setInterval(() => {
    if (currentKeyPressed.up) {
-      duckPosition(0,-9)
+      duckPosition(0,-8.7)
    } else if (currentKeyPressed.down) {
-      duckPosition(0,9)
+      duckPosition(0,8.7)
    } if (currentKeyPressed.right) {
-      duckPosition(9,0)
+      duckPosition(8.7,0)
    } else if (currentKeyPressed.left) {
-      duckPosition(-9,0)
+      duckPosition(-8.7,0)
    }
 }, 8);
 
