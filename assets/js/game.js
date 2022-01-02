@@ -213,15 +213,6 @@ function hunterHit() {
       gunSFX.play()
 }};
 
-// // on incrémente de 10 points le score du canard toutes les 10 secondes si la partie n'est pas terminée
-// var duckScoreInterval = setInterval(() => {
-//    console.log(duckScoreInterval)
-//    if (!gameOver) {
-//       duckScoreCount += 10
-//       duckScore.textContent = duckScoreCount
-//       duckPointSFX.play()
-// }},3000);
-
 function whoWins(duckScoreCount, hunterScoreCount) {
    results.style.display = "block"
    if (duckScoreCount > hunterScoreCount) {
