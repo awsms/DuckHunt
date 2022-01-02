@@ -117,7 +117,7 @@ function newGame() {
       var sec = remainingTime - min * 60;
       
       // le timer devient rouge dans les 15 dernières secondes
-      if (remainingTime === 15) {
+      if (remainingTime <= 15) {
          timerElement.style.color = "red"   
       } 
       // on s'assure que le timer soit toujours sous la forme M:SS
@@ -180,8 +180,9 @@ newGameButton.addEventListener('click', () => {
 // on ajoute 1 point au chasseur à chaque tir réussi sur le canard
 hunterScoreCount = 0;
 function hunterHit() {
-   hunterScore.textContent = (hunterScoreCount += 1)
-};
+   if (!gameOver) {
+      hunterScore.textContent = (hunterScoreCount += 1)
+}};
 
 // on incrémente de 10 points le score du canard toutes les 10 secondes
 var duckTimedScore = setInterval(function(){
