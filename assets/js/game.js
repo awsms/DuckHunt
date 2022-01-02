@@ -7,6 +7,9 @@ const newGameButton = document.getElementById('button-new_game');
 const timerElement = document.getElementById('score-timer');
 const results = document.getElementById('score-results');
 
+// var toast = document.getElementById('new-game-sfx');
+// toast.play()
+
 // initialisation du timer
 var timer = 0;
 
@@ -16,12 +19,15 @@ var duckLocation = {
    y: 0
 };
 
-// initialisation des bruitages sonores
-const duckPointSFX = new Audio('assets/audio/duck_point.wav');
+// initialisation des effets sonores
+const duckPointSFX = new Audio('assets/audio/point_duck.wav');
 const newGameSFX = new Audio('assets/audio/new_game.wav');
-const gunSFX = new Audio('assets/audio/hunter_point.wav');
- 
-// fonction permettant de play/stop des bruitages sonores
+const gunSFX = new Audio('assets/audio/point_hunter.wav');
+const duckWinsSFX = new Audio('assets/audio/win_duck.wav');
+const hunterWinstSFX = new Audio('assets/audio/win_hunter.wav');
+const drawSFX = new Audio('assets/audio/draw.wav');
+
+// fonction permettant de play/stop des effets sonores
 function playSFX(sfx) {
    sfx.pause();
    sfx.currentTime = 0;
@@ -93,6 +99,9 @@ setInterval(() => {
 }, 8);
 
 function newGame() {
+   // :-)
+   playSFX(newGameSFX)
+
    // on génère une position aléatoire à chaque début de partie pour le canard
    // gameScreen.offsetHeight représente la hauteur de l'écran, gameScreen.offsetWidth la largeur
    duckLocation.x = Math.floor(Math.random() * (gameScreen.offsetWidth - 143 + 1))
@@ -112,7 +121,7 @@ function newGame() {
    duckScoreCount = 0
    duckScore.textContent = 0
    timerElement.style.color = "blue"
-   var remainingTime = 120;
+   var remainingTime = 11;
    resetKeyPressed()
 
    if (timer !== 0) {
@@ -155,12 +164,13 @@ function newGame() {
    } ,1000);
 };
 
+// démarre une nouvelle partie au chargement de la page
 newGame()
 
 /**
  * fonction permettant de déplacer le canard grâce au CSS 
- * @param {Number} x   distance de parcours du canard en pixel sur l'axe x
- * @param {Number} y   distance de parcours du canard en pixel sur l'axe y
+ * @param {Number} x   distance de parcours du canard (en pixels) sur l'axe x
+ * @param {Number} y   distance de parcours du canard (en pixels) sur l'axe y
  */
 function duckPosition(x, y) {
    // le canard ira plus rapidement si shift gauche est enfoncée (ne fonctionne que sur les navigateurs basés sur chromium)
@@ -198,7 +208,6 @@ duck.addEventListener('mousedown', () => {
 
 // clic gauche sur le bouton button-new_game lance une nouvelle partie une fois le clic relâché
 newGameButton.addEventListener('click', () => {
-   playSFX(newGameSFX)
    newGame();
 });
   
@@ -212,16 +221,19 @@ function hunterHit() {
 
 /**
  * fonction permettant d'afficher le vainqueur 
- * @param {Number} duckScoreCount   score du joueur canard
+ * @param {Number} duckScoreCount     score du joueur canard
  * @param {Number} hunterScoreCount   score du joueur chasseur
  */
 function whoWins(duckScoreCount, hunterScoreCount) {
    results.style.display = "block"
    if (duckScoreCount > hunterScoreCount) {
       results.textContent = "Le cannard l'emporte!"
+      playSFX(duckWinsSFX)
    } else if (duckScoreCount < hunterScoreCount) {
       results.textContent = "Le chasseur l'emporte!"
+      playSFX(hunterWinstSFX)
    } else {
       results.textContent = "Match nul!"
+      playSFX(drawSFX)
    }
 };

@@ -116,3 +116,7 @@ body {
 #results {
    color: blue !important;
 }
+
+#new-game-sfx {
+   display: none;
+}
