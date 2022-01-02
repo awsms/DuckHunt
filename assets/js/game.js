@@ -121,7 +121,7 @@ function newGame() {
    duckScoreCount = 0
    duckScore.textContent = 0
    timerElement.style.color = "blue"
-   var remainingTime = 11;
+   var remainingTime = 120;
    resetKeyPressed()
 
    if (timer !== 0) {
