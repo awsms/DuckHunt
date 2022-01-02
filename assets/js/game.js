@@ -1,5 +1,7 @@
+// attribution des éléments HTML à des variables JS
 const duck = document.getElementById('duck');
 const duckScore = document.getElementById('score-duck_count');
+const gameScreen = document.getElementById('game-screen');
 const hunterScore = document.getElementById('score-hunter');
 const newGameButton = document.getElementById('button-new_game');
 const timerElement = document.getElementById('timer');
@@ -12,6 +14,13 @@ var duckLocation = {
    x: 0,
    y: 0
 };
+
+// variable indexant la taille de l'écran de jeu
+var gameScreenSize = {
+   height: gameScreen.offsetHeight,
+   width: gameScreen.offsetWidth
+}
+
 
 // variable indexant l'état de chaque touche du clavier répondant aux inputs 
 var currentKeyPressed = {
@@ -66,8 +75,6 @@ window.addEventListener("keyup", function(e) {
 }});
 
 // intervalle auquel est rafraîchi l'appel des fonctions du déplacement du canard
-// const intervalDuck = 8
-
 setInterval(() => {
    if (currentKeyPressed.up) {
       duckPosition(0,-9)
@@ -81,11 +88,11 @@ setInterval(() => {
 }, 8);
 
 
-window.addEventListener("keydown", function(e) {
-   if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
-       e.preventDefault();
-   }
-}, false);
+// window.addEventListener("keydown", function(e) {
+//    if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+//        e.preventDefault();
+//    }
+// }, false);
 
 function newGame() {
    // on génère une position aléatoire à chaque début de partie pour le canard
@@ -145,12 +152,12 @@ function duckPosition(x,y) {
    duckLocation.x += x
    duckLocation.y += y
    // si le canard sort de l'écran de jeu, on le force à se mettre à l'extrémité de la cartouche
-   if (duckLocation.x > 1260) {
-      duckLocation.x = 1260
+   if (duckLocation.x > gameScreenSize.width - 140) {
+      duckLocation.x = gameScreenSize.width - 140
    } if (duckLocation.x < 0) {
       duckLocation.x = 0
-   } if (duckLocation.y > 737) {
-      duckLocation.y = 737
+   } if (duckLocation.y > gameScreenSize.height - 138) {
+      duckLocation.y = gameScreenSize.height - 138
    } if (duckLocation.y < 0) {
       duckLocation.y = 0
    } if (x<0) {
