@@ -26,7 +26,7 @@ const duckPointSFX = new Audio('assets/audio/point_duck.wav');
 const newGameSFX = new Audio('assets/audio/new_game.wav');
 const gunSFX = new Audio('assets/audio/point_hunter.wav');
 const duckWinsSFX = new Audio('assets/audio/win_duck.wav');
-const hunterWinstSFX = new Audio('assets/audio/win_hunter.wav');
+const hunterWinsSFX = new Audio('assets/audio/win_hunter.wav');
 const drawSFX = new Audio('assets/audio/draw.wav');
 
 // fonction permettant de play/stop des effets sonores
@@ -241,7 +241,7 @@ function whoWins(duckScoreCount, hunterScoreCount) {
       playSFX(duckWinsSFX);
    } else if (duckScoreCount < hunterScoreCount) {
       results.textContent = "Le chasseur l'emporte!";
-      playSFX(hunterWinstSFX);
+      playSFX(hunterWinsSFX);
    } else {
       results.textContent = "Match nul!";
       playSFX(drawSFX);
