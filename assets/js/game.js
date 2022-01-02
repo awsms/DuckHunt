@@ -21,6 +21,12 @@ var duckLocation = {
    y: 0
 };
 
+function playSFX(sfx) {
+   sfx.pause();
+   sfx.currentTime = 0;
+   sfx.play()
+}
+
 // variable indexant l'état de chaque touche du clavier répondant aux inputs 
 var currentKeyPressed = {
    up: false,
@@ -191,7 +197,10 @@ duck.addEventListener('mousedown', () => {
 
 // clic gauche sur le bouton button-new_game lance une nouvelle partie une fois le clic relâché
 newGameButton.addEventListener('click', () => {
-   newGameSFX.play()
+   // newGameSFX.pause();
+   // newGameSFX.currentTime = 0;
+   // newGameSFX.play()
+   playSFX(newGameSFX)
    newGame();
 });
   
@@ -200,7 +209,10 @@ hunterScoreCount = 0;
 function hunterHit() {
    if (!gameOver) {
       hunterScore.textContent = (hunterScoreCount += 1)
-      gunSFX.play()
+      // gunSFX.pause();
+      // gunSFX.currentTime = 0;
+      // gunSFX.play()
+      playSFX(gunSFX)
 }};
 
 /**
