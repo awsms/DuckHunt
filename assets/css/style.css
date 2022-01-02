@@ -4,6 +4,13 @@
    font-family: 'DSEG';
    src: url('../fonts/DSEG7Classic-Regular.woff') format('woff');
 }
+
+@font-face {
+   /* police d'écriture 8bit
+   https://www.dafont.com/kongtext.font */
+   font-family: 'Kongtext';
+   src: url('../fonts/kongtext.ttf');
+}
 /* 
 * {
    box-sizing: border-box;
@@ -83,16 +90,18 @@ body {
 
 #score-results {
    /* max-width: 1000px; */
-   width: 500px;
+   width: 50%;
    height: 200px;
    margin: auto;
    top: 40%;
    left: 1%;
    right: 1%;
    position: absolute;
-   background: black;
-   font-size: large;
+   /* background: gray; */
+   font-size: 60px;
    display: none;
+   text-align: center;
+   font-family: 'Kongtext';
 }
 
 #results {
