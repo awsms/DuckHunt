@@ -93,7 +93,7 @@ setInterval(() => {
 // }, false);
 
 function newGame() {
-   newGameSFX.play()
+
    // on génère une position aléatoire à chaque début de partie pour le canard
    // gameScreen.offsetHeight représente la hauteur de l'écran, gameScreen.offsetWidth la largeur
    duckLocation.x = Math.floor(Math.random() * (gameScreen.offsetWidth - 143 + 1))
@@ -201,6 +201,7 @@ duck.addEventListener('mousedown', () => {
 
 // clic gauche lance une nouvelle partie une fois le clic relâché
 newGameButton.addEventListener('click', () => {
+   newGameSFX.play()
    newGame();
 });
   
