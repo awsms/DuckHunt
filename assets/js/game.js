@@ -10,17 +10,18 @@ const results = document.getElementById('score-results');
 // initialisation du timer
 var timer = 0;
 
-// initialisation des bruitages sonores
-const duckPointSFX = new Audio('assets/audio/duck_point.wav');
-const newGameSFX = new Audio('assets/audio/new_game.wav');
-const gunSFX = new Audio('assets/audio/hunter_point.wav');
- 
 // endroit où se trouve le canard sur les axes X/Y
 var duckLocation = {
    x: 0,
    y: 0
 };
 
+// initialisation des bruitages sonores
+const duckPointSFX = new Audio('assets/audio/duck_point.wav');
+const newGameSFX = new Audio('assets/audio/new_game.wav');
+const gunSFX = new Audio('assets/audio/hunter_point.wav');
+ 
+// fonction permettant de play/stop des bruitages sonores
 function playSFX(sfx) {
    sfx.pause();
    sfx.currentTime = 0;
@@ -158,8 +159,8 @@ newGame()
 
 /**
  * fonction permettant de déplacer le canard grâce au CSS 
- * @param {Number} x   distance de parcours en pixel sur l'axe x
- * @param {Number} y   distance de parcours en pixel sur l'axe y
+ * @param {Number} x   distance de parcours du canard en pixel sur l'axe x
+ * @param {Number} y   distance de parcours du canard en pixel sur l'axe y
  */
 function duckPosition(x, y) {
    // le canard ira plus rapidement si shift gauche est enfoncée (ne fonctionne que sur les navigateurs basés sur chromium)
@@ -197,9 +198,6 @@ duck.addEventListener('mousedown', () => {
 
 // clic gauche sur le bouton button-new_game lance une nouvelle partie une fois le clic relâché
 newGameButton.addEventListener('click', () => {
-   // newGameSFX.pause();
-   // newGameSFX.currentTime = 0;
-   // newGameSFX.play()
    playSFX(newGameSFX)
    newGame();
 });
@@ -209,9 +207,6 @@ hunterScoreCount = 0;
 function hunterHit() {
    if (!gameOver) {
       hunterScore.textContent = (hunterScoreCount += 1)
-      // gunSFX.pause();
-      // gunSFX.currentTime = 0;
-      // gunSFX.play()
       playSFX(gunSFX)
 }};
 
