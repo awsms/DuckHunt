@@ -93,29 +93,37 @@ function newGame() {
    duckLocation.x = Math.floor(Math.random() * (1300 - 1 + 1))
    duckLocation.y = Math.floor(Math.random() * (775 - 1 + 1))
    duck.style.transform = 'translate('+duckLocation.x+'px,'+duckLocation.y+'px)'
-   // remainingTime = 5
+
+   // on cache le bandeau d'affichage des résultats
    results.style.display = 'none'
+
+   // initialisation graphique du timer
    timerElement.textContent = '2:00'
+   
+   // remise à zéro des inputs et de toutes les valeurs de score
    hunterScoreCount = 0
    hunterScore.textContent = 0
    duckScoreCount = 0
    duckScore.textContent = 0
    resetKeyPressed()
    gameOver = false
+   min = 0
+   sec = 0
+   timerElement.style.color = "blue"
 
-   var remainingTime = 20;
+   var remainingTime = 120;
    var timer = setInterval(function(){
       remainingTime -= 1
       var min = Math.floor(remainingTime / 60);
       var sec = remainingTime - min * 60;
-      console.log(min,sec)
+      
       // le timer devient rouge dans les 15 dernières secondes
       if (remainingTime === 15) {
-      timerElement.style.color = "red"   
+         timerElement.style.color = "red"   
       } 
       // on s'assure que le timer soit toujours sous la forme M:SS
       if (sec <= 9) {
-      timerElement.textContent = min + ':' + '0' + sec;   
+         timerElement.textContent = min + ':' + '0' + sec;   
       } else timerElement.textContent = min + ':' + sec;
       
       if (remainingTime == 0) {
@@ -131,13 +139,13 @@ function newGame() {
 newGame()
 
 function duckPosition(x,y) {
-   // le canard ira plus rapidement si shift gauche est enfoncée
+   // le canard ira plus rapidement si shift gauche est enfoncée (ne fonctionne que sur les navigateurs basés sur chromium)
    if (currentKeyPressed.shift) {
       x=x*1.3
       y=y*1.3 }
    duckLocation.x += x
    duckLocation.y += y
-   // si le canard sort de l'écran de jeu, on le force à s'y mettre à l'extrémité
+   // si le canard sort de l'écran de jeu, on le force à se mettre à l'extrémité de la cartouche
    if (duckLocation.x > 1260) {
       duckLocation.x = 1260
    } if (duckLocation.x < 0) {
@@ -170,18 +178,14 @@ newGameButton.addEventListener('click', () => {
    newGame();
 });
   
+// on ajoute 1 point au chasseur à chaque tir réussi sur le canard
+hunterScoreCount = 0;
+function hunterHit() {
+   hunterScore.textContent = (hunterScoreCount += 1)
+};
 
-// update score for the duck player every 10sec
-
-var tets = setInterval(function(){
-   //  console.log(l);
-   //  l--;
-   //  this.
-   //  timer.textContent = time
-   //  if(l == -1) {
-//      console.log('t');
-//      clearInterval(tets);
-   //  }
+// on incrémente de 10 points le score du canard toutes les 10 secondes
+var duckTimedScore = setInterval(function(){
    duckScoreCount += 10
    duckScore.textContent = duckScoreCount
 },10000);
@@ -192,19 +196,9 @@ function whoWins(duckScoreCount,hunterScoreCount) {
    results.style.display = "block"
    if (duckScoreCount>hunterScoreCount) {
       results.textContent = "Le canneton a gagné !"
-      // alert("le canneton a gagné")
    } else if (duckScoreCount<hunterScoreCount) {
       results.textContent = "Le chasseur a gagné !"
-      // alert("le chasseur a gagné")
    } else {
       results.textContent = "Égalité !"
    }
-};
-
-/* scoring part */
-// hunterScore.textContent = 0
-hunterScoreCount = 0;
-function hunterHit() {
-   // hunterScoreCount += 1
-   hunterScore.textContent = (hunterScoreCount += 1)
 };
