@@ -1,3 +1,8 @@
+@font-face {
+   font-family: 'DSEG';
+   src: url('../assets/fonts/DSEG7Classic-Regular.woff') format('woff');
+}
+
 /* {
    box-sizing: border-box; */
 /* } */
@@ -16,8 +21,10 @@ body {
 }
 
 #game-screen {
-   width: 1400px;
-   height: 875px;
+   /* width: 1400px;
+   height: 875px; */
+   width: 80%;
+   height: 920px;  
    /* background-color: white; */
    border: 1px solid black;
    /* border-bottom: none; */
@@ -43,27 +50,31 @@ body {
  /* .info {
    top: 0 !important;
 } */
-/*
-.score {
-   top: 0;
-}
 
+/* .score {
+   left: 500% !important;
+} */
+/*
 .timer {
    top:0 !important;
 } */
 
 #score-screen {
    /* padding: 20px; */
-   width: 250px;
-   height: 875px;
+   /* width: 250px; */
+   text-align: center;
+   width: 10%;
+   height: 220px;
    background-color: grey;
    border: 1px solid black;
+   align-items: center;
 }
 
 #time {
    /* padding: 20px; */
-   width: 250px;
-   height: 875px;
+   width: 10%;
+   text-align: center;
+   height: 220px;
    background-color: grey;
    border: 1px solid black;
    position: relative;
@@ -96,3 +107,9 @@ body {
    display: none;
 }
 
+
+
+#timer {
+   font-family: 'DSEG';
+   color: blue;
+}

@@ -95,7 +95,7 @@ function newGame() {
    duck.style.transform = 'translate('+duckLocation.x+'px,'+duckLocation.y+'px)'
    // remainingTime = 5
    results.style.display = 'none'
-   timerElement.textContent = 120+'s'
+   timerElement.textContent = '2:00'
    hunterScoreCount = 0
    hunterScore.textContent = 0
    duckScoreCount = 0
@@ -103,10 +103,21 @@ function newGame() {
    resetKeyPressed()
    gameOver = false
 
-   var remainingTime = 120;
+   var remainingTime = 20;
    var timer = setInterval(function(){
       remainingTime -= 1
-      timerElement.textContent = remainingTime+'s';
+      var min = Math.floor(remainingTime / 60);
+      var sec = remainingTime - min * 60;
+      console.log(min,sec)
+      // le timer devient rouge dans les 15 dernières secondes
+      if (remainingTime === 15) {
+      timerElement.style.color = "red"   
+      } 
+      // on s'assure que le timer soit toujours sous la forme M:SS
+      if (sec <= 9) {
+      timerElement.textContent = min + ':' + '0' + sec;   
+      } else timerElement.textContent = min + ':' + sec;
+      
       if (remainingTime == 0) {
          clearInterval(timer)
          whoWins(duckScoreCount,hunterScoreCount)
