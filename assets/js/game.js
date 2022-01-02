@@ -15,13 +15,6 @@ var duckLocation = {
    y: 0
 };
 
-// variable indexant la taille de l'écran de jeu
-var gameScreenSize = {
-   height: gameScreen.offsetHeight,
-   width: gameScreen.offsetWidth
-}
-
-
 // variable indexant l'état de chaque touche du clavier répondant aux inputs 
 var currentKeyPressed = {
    up: false,
@@ -96,8 +89,9 @@ setInterval(() => {
 
 function newGame() {
    // on génère une position aléatoire à chaque début de partie pour le canard
-   duckLocation.x = Math.floor(Math.random() * (1300 - 1 + 1))
-   duckLocation.y = Math.floor(Math.random() * (775 - 1 + 1))
+   // gameScreen.offsetHeight représente la hauteur de l'écran, gameScreen.offsetWidth la largeur
+   duckLocation.x = Math.floor(Math.random() * (gameScreen.offsetWidth - 143 + 1))
+   duckLocation.y = Math.floor(Math.random() * (gameScreen.offsetHeight - 140 + 1))
    duck.style.transform = 'translate('+duckLocation.x+'px,'+duckLocation.y+'px)'
 
    // on cache le bandeau d'affichage du résultat final
@@ -138,8 +132,6 @@ function newGame() {
          gameOver = true
       }
    } ,1000);
-   
-
 };
 
 newGame()
@@ -152,12 +144,12 @@ function duckPosition(x,y) {
    duckLocation.x += x
    duckLocation.y += y
    // si le canard sort de l'écran de jeu, on le force à se mettre à l'extrémité de la cartouche
-   if (duckLocation.x > gameScreenSize.width - 143) {
-      duckLocation.x = gameScreenSize.width - 143
+   if (duckLocation.x > gameScreenSize.offsetWidth - 143) {
+      duckLocation.x = gameScreenSize.offsetWidth - 143
    } if (duckLocation.x < 0) {
       duckLocation.x = 0
-   } if (duckLocation.y > gameScreenSize.height - 140) {
-      duckLocation.y = gameScreenSize.height - 140
+   } if (duckLocation.y > gameScreenSize.offsetHeight - 140) {
+      duckLocation.y = gameScreenSize.offsetHeight - 140
    } if (duckLocation.y < 0) {
       duckLocation.y = 0
    } if (x<0) {
