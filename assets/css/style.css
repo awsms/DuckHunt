@@ -96,3 +96,7 @@ body {
    font-size: large;
    display: none;
 }
+
+#results {
+   color: blue !important;
+}

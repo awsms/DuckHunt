@@ -7,9 +7,7 @@ const newGameButton = document.getElementById('button-new_game');
 const timerElement = document.getElementById('timer');
 const results = document.getElementById('score-results');
 
-var gameOver = false;
-
-// endroit où se trouve actuellement le canard sur les axes X/Y
+// endroit où se trouve le canard sur les axes X/Y
 var duckLocation = {
    x: 0,
    y: 0
@@ -37,7 +35,7 @@ function resetKeyPressed() {
 window.addEventListener("keydown", function(e) {
    // arrête de répondre aux inputs si la partie est terminée
    if (gameOver) {
-      return
+      resetKeyPressed()
    } else if (e.code === "ArrowDown"){
       // move the duck 50px down when arrow down key is pressed
       // when the down arrow is pressed, change the currentKeyPressed property for down key to true
@@ -101,16 +99,17 @@ function newGame() {
    timerElement.textContent = '2:00'
    
    // remise à zéro des inputs et de toutes les valeurs de score
+   gameOver = false
    hunterScoreCount = 0
    hunterScore.textContent = 0
    duckScoreCount = 0
    duckScore.textContent = 0
-   resetKeyPressed()
-   gameOver = false
    min = 0
    sec = 0
    timerElement.style.color = "blue"
+   resetKeyPressed()
 
+   // initialisation du timer
    var remainingTime = 120;
    var timer = setInterval(function(){
       remainingTime -= 1
@@ -126,7 +125,7 @@ function newGame() {
          timerElement.textContent = min + ':' + '0' + sec;   
       } else timerElement.textContent = min + ':' + sec;
       
-      if (remainingTime == 0) {
+      if (remainingTime === 0) {
          clearInterval(timer)
          whoWins(duckScoreCount,hunterScoreCount)
          gameOver = true
@@ -136,7 +135,7 @@ function newGame() {
 
 newGame()
 
-function duckPosition(x,y) {
+function duckPosition(x, y) {
    // le canard ira plus rapidement si shift gauche est enfoncée (ne fonctionne que sur les navigateurs basés sur chromium)
    if (currentKeyPressed.shift) {
       x=x*1.3
@@ -167,36 +166,36 @@ function duckPosition(x,y) {
 //    gunsound.play();
 //  });
 
-// évènements qui écoutent les inputs de la souris et qui appellent une fonction selon l'endroit cliqué (tir sur canard ou nouvelle partie)
+// liste évènements qui écoutent les inputs de la souris et qui appellent une fonction selon l'endroit cliqué
+// un clic gauche sur le canard appelle immédiatement hunterHit() 
 duck.addEventListener('mousedown', () => {
    hunterHit();
 });
 
+// clic gauche lance une nouvelle partie une fois le clic relâché
 newGameButton.addEventListener('click', () => {
    newGame();
 });
   
-// on ajoute 1 point au chasseur à chaque tir réussi sur le canard
+// on ajoute 1 point au chasseur à chaque tir réussi sur le canard si la partie n'est pas terminée
 hunterScoreCount = 0;
 function hunterHit() {
    if (!gameOver) {
       hunterScore.textContent = (hunterScoreCount += 1)
 }};
 
-// on incrémente de 10 points le score du canard toutes les 10 secondes
+// on incrémente de 10 points le score du canard toutes les 10 secondes si la partie n'est pas terminée
 var duckTimedScore = setInterval(function(){
    if (!gameOver) {
       duckScoreCount += 10
       duckScore.textContent = duckScoreCount
 }},10000);
 
-
-
-function whoWins(duckScoreCount,hunterScoreCount) {
+function whoWins(duckScoreCount, hunterScoreCount) {
    results.style.display = "block"
-   if (duckScoreCount>hunterScoreCount) {
+   if (duckScoreCount > hunterScoreCount) {
       results.textContent = "Le canneton a gagné !"
-   } else if (duckScoreCount<hunterScoreCount) {
+   } else if (duckScoreCount < hunterScoreCount) {
       results.textContent = "Le chasseur a gagné !"
    } else {
       results.textContent = "Égalité !"
