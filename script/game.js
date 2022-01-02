@@ -1,5 +1,5 @@
 const duck = document.getElementById('duck');
-const duckScore = document.getElementById('score-duck');
+const duckScore = document.getElementById('score-duck_count');
 const hunterScore = document.getElementById('score-hunter');
 // const resetButton = document.getElementById('button-reset');
 const newGameButton = document.getElementById('button-new_game');
@@ -89,7 +89,6 @@ window.addEventListener("keydown", function(e) {
 }, false);
 
 function newGame() {
-
    // on génère une position aléatoire à chaque début de partie pour le canard
    duckLocation.x = Math.floor(Math.random() * (1300 - 1 + 1))
    duckLocation.y = Math.floor(Math.random() * (775 - 1 + 1))
@@ -128,12 +127,12 @@ function duckPosition(x,y) {
    duckLocation.x += x
    duckLocation.y += y
    // si le canard sort de l'écran de jeu, on le force à s'y mettre à l'extrémité
-   if (duckLocation.x > 1300) {
-      duckLocation.x = 1300
+   if (duckLocation.x > 1260) {
+      duckLocation.x = 1260
    } if (duckLocation.x < 0) {
       duckLocation.x = 0
-   } if (duckLocation.y > 775) {
-      duckLocation.y = 775
+   } if (duckLocation.y > 737) {
+      duckLocation.y = 737
    } if (duckLocation.y < 0) {
       duckLocation.y = 0
    } if (x<0) {
