@@ -93,7 +93,7 @@ body {
    position: absolute;
    width: 140px;
    height: 138px;
-   right:625 !important;
+   /* right: 625px !important; */
    transform: translate(625px,425px);
    background-color: none;
 }

@@ -10,6 +10,11 @@ const results = document.getElementById('score-results');
 // initialisation du timer
 var timer = 0;
 
+// initialisation des scores du joueur canard/chasseur et du gameover
+var gameOver = false;
+hunterScoreCount = 0;
+duckScoreCount = 0;
+
 // endroit où se trouve le canard sur les axes X/Y
 var duckLocation = {
    x: 0,
@@ -28,7 +33,7 @@ const drawSFX = new Audio('assets/audio/draw.wav');
 function playSFX(sfx) {
    sfx.pause();
    sfx.currentTime = 0;
-   sfx.play()
+   sfx.play();
 }
 
 // variable indexant l'état de chaque touche du clavier répondant aux inputs 
@@ -42,102 +47,104 @@ var currentKeyPressed = {
 
 // reset l'état de toutes les touches
 function resetKeyPressed() {
-   currentKeyPressed.up = false,
-   currentKeyPressed.down = false,
-   currentKeyPressed.left = false,
-   currentKeyPressed.right = false,
-   currentKeyPressed.shift = false
-};
+   currentKeyPressed.up = false;
+   currentKeyPressed.down = false;
+   currentKeyPressed.left = false;
+   currentKeyPressed.right = false;
+   currentKeyPressed.shift = false;
+}
 
 // évènements qui écoutent les inputs du clavier lorsqu'une touche est appuyée (déplacement du canard)
 window.addEventListener("keydown", function(e) {
    // arrête de répondre aux inputs si la partie est terminée
    if (gameOver) {
-      resetKeyPressed()
+      resetKeyPressed();
    } else if (e.code === "ArrowDown"){
       // lorsque flèche bas est pressée, "position bas" passe à vrai 
-      currentKeyPressed.down = true
+      currentKeyPressed.down = true;
    } else if (e.code === "ArrowUp"){
-      currentKeyPressed.up = true
+      currentKeyPressed.up = true;
    } else if (e.code === "ArrowLeft"){
-      currentKeyPressed.left = true
+      currentKeyPressed.left = true;
    } else if (e.code === "ArrowRight"){
-      currentKeyPressed.right = true
+      currentKeyPressed.right = true;
    } else if (e.code === "ShiftLeft"){
-      currentKeyPressed.shift = true
+      currentKeyPressed.shift = true;
 }});
  
 // évènements qui écoutent les inputs du clavier lorsqu'une touche est relâchée
 window.addEventListener("keyup", function(e) {
    if (e.code === "ArrowDown"){
       // lorsque flèche bas est relâchée, "position bas" passe à faux 
-      currentKeyPressed.down = false
-   } if (e.code === "ArrowUp"){
-      currentKeyPressed.up = false
-   } if (e.code === "ArrowLeft"){
-      currentKeyPressed.left = false
-   } if (e.code === "ArrowRight"){
-      currentKeyPressed.right = false
+      currentKeyPressed.down = false;
+   } else if (e.code === "ArrowUp"){
+      currentKeyPressed.up = false;
+   } else if (e.code === "ArrowLeft"){
+      currentKeyPressed.left = false;
+   } else if (e.code === "ArrowRight"){
+      currentKeyPressed.right = false;
    } else if (e.code === "ShiftLeft"){
-      currentKeyPressed.shift = false
+      currentKeyPressed.shift = false;
 }});
 
 // intervalle auquel est rafraîchi l'appel des fonctions de déplacement du canard
 setInterval(() => {
    if (currentKeyPressed.up) {
-      duckPosition(0,-8.7)
+      duckPosition(0,-8.7);
    } else if (currentKeyPressed.down) {
-      duckPosition(0,8.7)
-   } if (currentKeyPressed.right) {
-      duckPosition(8.7,0)
+      duckPosition(0,8.7);
+   }
+   if (currentKeyPressed.right) {
+      duckPosition(8.7,0);
    } else if (currentKeyPressed.left) {
-      duckPosition(-8.7,0)
+      duckPosition(-8.7,0);
    }
 }, 8);
 
 function newGame() {
    // :-)
-   playSFX(newGameSFX)
+   playSFX(newGameSFX);
 
    // on génère une position aléatoire à chaque début de partie pour le canard
    // gameScreen.offsetHeight représente la hauteur de l'écran, gameScreen.offsetWidth la largeur
-   duckLocation.x = Math.floor(Math.random() * (gameScreen.offsetWidth - 143 + 1))
-   duckLocation.y = Math.floor(Math.random() * (gameScreen.offsetHeight - 140 + 1))
-   duck.style.transform = 'translate('+duckLocation.x+'px,'+duckLocation.y+'px)'
+   duckLocation.x = Math.floor(Math.random() * (gameScreen.offsetWidth - 143 + 1));
+   duckLocation.y = Math.floor(Math.random() * (gameScreen.offsetHeight - 140 + 1));
+   duck.style.transform = 'translate('+duckLocation.x+'px,'+duckLocation.y+'px)';
 
    // on cache le bandeau d'affichage du résultat final
-   results.style.display = 'none'
+   results.style.display = 'none';
 
    // initialisation graphique du timer
-   timerElement.textContent = '2:00'
+   timerElement.textContent = '2:00';
    
    // remise à zéro des inputs et de toutes les valeurs de score et timer
-   gameOver = false
-   hunterScoreCount = 0
-   hunterScore.textContent = 0
-   duckScoreCount = 0
-   duckScore.textContent = 0
-   timerElement.style.color = "blue"
+   gameOver = false;
+   hunterScoreCount = 0;
+   hunterScore.textContent = 0;
+   duckScoreCount = 0;
+   duckScore.textContent = 0;
+   timerElement.style.color = "blue";
    var remainingTime = 120;
-   resetKeyPressed()
+   resetKeyPressed();
 
+   // réinitialiser le timer après avoir relancé une partie 
    if (timer !== 0) {
       clearInterval(timer);
-      timer = 0
+      timer = 0;
    }
 
    timer = setInterval(() => {
-      remainingTime -= 1
+      remainingTime -= 1;
       var min = Math.floor(remainingTime / 60);
       var sec = remainingTime - min * 60;
       
       // le timer devient rouge dans les 15 dernières secondes
       if (remainingTime <= 15) {
-         timerElement.style.color = "red"   
+         timerElement.style.color = "red";
       } 
       // le timer devient noir lorsque la partie s'arrête
       if (remainingTime === 0) {
-         timerElement.style.color = "black"   
+         timerElement.style.color = "black";
       } 
       // on s'assure que le timer soit toujours sous la forme M:SS
       if (sec <= 9) {
@@ -147,22 +154,22 @@ function newGame() {
       // on incrémente de 10 points le score du canard toutes les 10 secondes
       if (remainingTime %10 === 0 && remainingTime !== 0) {
          if (!gameOver) {
-         duckScore.textContent = (duckScoreCount += 10)
-         duckPointSFX.play()
+            duckScore.textContent = (duckScoreCount += 10);
+            duckPointSFX.play();
          }
       }
 
       // fin de partie lorsqu'il reste 0 seconde au timer 
       if (remainingTime === 0) {
-         clearInterval(timer)
-         whoWins(duckScoreCount, hunterScoreCount)
-         gameOver = true
+         clearInterval(timer);
+         whoWins(duckScoreCount, hunterScoreCount);
+         gameOver = true;
       }
    } ,1000);
-};
+}
 
 // démarre une nouvelle partie au chargement de la page
-newGame()
+newGame();
 
 /**
  * fonction permettant de déplacer le canard grâce au CSS 
@@ -172,65 +179,70 @@ newGame()
 function duckPosition(x, y) {
    // le canard ira plus rapidement si shift gauche est enfoncée (ne fonctionne que sur les navigateurs basés sur chromium)
    if (currentKeyPressed.shift) {
-      x=x*1.3
-      y=y*1.3 }
+      x=x*1.3;
+      y=y*1.3;
+   }
 
    // la position du canard sur x & y est incrémentée par les valeurs en entrée de fonction
-   duckLocation.x += x
-   duckLocation.y += y
+   duckLocation.x += x;
+   duckLocation.y += y;
 
    // si le canard sort de l'écran de jeu, on le force à se mettre à l'extrémité de la cartouche
    if (duckLocation.x > gameScreen.offsetWidth - 143) {
-      duckLocation.x = gameScreen.offsetWidth - 143
-   } if (duckLocation.x < 0) {
-      duckLocation.x = 0
-   } if (duckLocation.y > gameScreen.offsetHeight - 140) {
-      duckLocation.y = gameScreen.offsetHeight - 140
-   } if (duckLocation.y < 0) {
-      duckLocation.y = 0
-   } if (x<0) {
+      duckLocation.x = gameScreen.offsetWidth - 143;
+   }
+   if (duckLocation.x < 0) {
+      duckLocation.x = 0;
+   }
+   if (duckLocation.y > gameScreen.offsetHeight - 140) {
+      duckLocation.y = gameScreen.offsetHeight - 140;
+   }
+   if (duckLocation.y < 0) {
+      duckLocation.y = 0;
+   }
+   if (x<0) {
       // scaleX(-1) permet de refléter le sprite du canard sur l'axe X     
       duck.style.transform = 'translate('+duckLocation.x+'px,'+duckLocation.y+'px) scaleX(-1)'
    // on utilise une fonction CSS qui permet de changer l'emplacement du canard sur les axes X/Y
    // "translateX(Xpx) translateY(Ypx)" = "translate(Xpx, Ypx)"
    } else {
       duck.style.transform = 'translate('+duckLocation.x+'px,'+duckLocation.y+'px)'
-}};
+}}
 
 // évènements qui écoutent les inputs de la souris et qui appellent une fonction selon l'endroit cliqué
 // clic gauche sur le canard appelle immédiatement hunterHit() 
 duck.addEventListener('mousedown', () => {
    hunterHit();
-});
+})
 
 // clic gauche sur le bouton button-new_game lance une nouvelle partie une fois le clic relâché
 newGameButton.addEventListener('click', () => {
    newGame();
-});
+})
   
 // on ajoute 1 point au chasseur à chaque tir réussi sur le canard si la partie n'est pas terminée
 hunterScoreCount = 0;
 function hunterHit() {
    if (!gameOver) {
-      hunterScore.textContent = (hunterScoreCount += 1)
-      playSFX(gunSFX)
-}};
+      hunterScore.textContent = (hunterScoreCount += 1);
+      playSFX(gunSFX);
+}}
 
 /**
- * fonction permettant d'afficher le vainqueur 
+ * fonction permettant d'afficher le vainqueur
  * @param {Number} duckScoreCount     score du joueur canard
  * @param {Number} hunterScoreCount   score du joueur chasseur
  */
 function whoWins(duckScoreCount, hunterScoreCount) {
-   results.style.display = "block"
+   results.style.display = "block";
    if (duckScoreCount > hunterScoreCount) {
-      results.textContent = "Le cannard l'emporte!"
-      playSFX(duckWinsSFX)
+      results.textContent = "Le cannard l'emporte!";
+      playSFX(duckWinsSFX);
    } else if (duckScoreCount < hunterScoreCount) {
-      results.textContent = "Le chasseur l'emporte!"
-      playSFX(hunterWinstSFX)
+      results.textContent = "Le chasseur l'emporte!";
+      playSFX(hunterWinstSFX);
    } else {
-      results.textContent = "Match nul!"
-      playSFX(drawSFX)
+      results.textContent = "Match nul!";
+      playSFX(drawSFX);
    }
-};
+}
