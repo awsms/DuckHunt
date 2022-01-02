@@ -115,7 +115,11 @@ function newGame() {
    timerElement.style.color = "blue"
    var remainingTime = 120;
    resetKeyPressed()
-   clearInterval(timer)
+
+   if (timer !== 0) {
+      clearInterval(timer);
+      timer = 0
+   }
 
    timer = setInterval(() => {
       remainingTime -= 1
