@@ -6,7 +6,14 @@ const hunterScore = document.getElementById('score-hunter');
 const newGameButton = document.getElementById('button-new_game');
 const timerElement = document.getElementById('timer');
 const results = document.getElementById('score-results');
+var timer = 0;
 
+// initialisation des bruitages sonores
+// var gunsound = new Audio('sfx/10 - SFX Gun Shot.mp3')
+const duckPointSFX = new Audio('assets/audio/duck_point.wav');
+const newGameSFX = new Audio('assets/audio/new_game.wav');
+const gunSFX = new Audio('assets/audio/hunter_point.wav');
+ 
 // endroit où se trouve le canard sur les axes X/Y
 var duckLocation = {
    x: 0,
@@ -86,6 +93,7 @@ setInterval(() => {
 // }, false);
 
 function newGame() {
+   newGameSFX.play()
    // on génère une position aléatoire à chaque début de partie pour le canard
    // gameScreen.offsetHeight représente la hauteur de l'écran, gameScreen.offsetWidth la largeur
    duckLocation.x = Math.floor(Math.random() * (gameScreen.offsetWidth - 143 + 1))
@@ -104,14 +112,12 @@ function newGame() {
    hunterScore.textContent = 0
    duckScoreCount = 0
    duckScore.textContent = 0
-   min = 0
-   sec = 0
    timerElement.style.color = "blue"
-   resetKeyPressed()
-
-   // initialisation du timer
    var remainingTime = 120;
-   var timer = setInterval(function(){
+   resetKeyPressed()
+   clearInterval(timer)
+
+   timer = setInterval(() => {
       remainingTime -= 1
       var min = Math.floor(remainingTime / 60);
       var sec = remainingTime - min * 60;
@@ -120,6 +126,10 @@ function newGame() {
       if (remainingTime <= 15) {
          timerElement.style.color = "red"   
       } 
+      // le timer devient noir lorsque la partie s'arrête
+      if (remainingTime === 0) {
+         timerElement.style.color = "black"   
+      } 
       // on s'assure que le timer soit toujours sous la forme M:SS
       if (sec <= 9) {
          timerElement.textContent = min + ':' + '0' + sec;   
@@ -127,14 +137,28 @@ function newGame() {
       
       if (remainingTime === 0) {
          clearInterval(timer)
-         whoWins(duckScoreCount,hunterScoreCount)
+         whoWins(duckScoreCount, hunterScoreCount)
          gameOver = true
+      }
+
+      // on incrémente de 10 points le score du canard toutes les 10 secondes
+      if (remainingTime %10 == 0) {
+         if (!gameOver) {
+         duckScoreCount += 10
+         duckScore.textContent = duckScoreCount
+         duckPointSFX.play()
+         }
       }
    } ,1000);
 };
 
 newGame()
 
+/**
+ * fonction permettant de déplacer le canard grâce au CSS 
+ * @param {} x    distance de parcours en pixel sur l'axe x
+ * @param {} y   distance de parcours en pixel sur l'axe y
+ */
 function duckPosition(x, y) {
    // le canard ira plus rapidement si shift gauche est enfoncée (ne fonctionne que sur les navigateurs basés sur chromium)
    if (currentKeyPressed.shift) {
@@ -160,7 +184,6 @@ function duckPosition(x, y) {
       duck.style.transform = 'translate('+duckLocation.x+'px,'+duckLocation.y+'px)'
 }};
 
-// var gunsound = new Audio('sfx/10 - SFX Gun Shot.mp3')
 
 // window.addEventListener('click', () => {
 //    gunsound.play();
@@ -182,14 +205,17 @@ hunterScoreCount = 0;
 function hunterHit() {
    if (!gameOver) {
       hunterScore.textContent = (hunterScoreCount += 1)
+      gunSFX.play()
 }};
 
-// on incrémente de 10 points le score du canard toutes les 10 secondes si la partie n'est pas terminée
-var duckTimedScore = setInterval(function(){
-   if (!gameOver) {
-      duckScoreCount += 10
-      duckScore.textContent = duckScoreCount
-}},10000);
+// // on incrémente de 10 points le score du canard toutes les 10 secondes si la partie n'est pas terminée
+// var duckScoreInterval = setInterval(() => {
+//    console.log(duckScoreInterval)
+//    if (!gameOver) {
+//       duckScoreCount += 10
+//       duckScore.textContent = duckScoreCount
+//       duckPointSFX.play()
+// }},3000);
 
 function whoWins(duckScoreCount, hunterScoreCount) {
    results.style.display = "block"
