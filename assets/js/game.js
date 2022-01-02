@@ -152,12 +152,12 @@ function duckPosition(x,y) {
    duckLocation.x += x
    duckLocation.y += y
    // si le canard sort de l'écran de jeu, on le force à se mettre à l'extrémité de la cartouche
-   if (duckLocation.x > gameScreenSize.width - 140) {
-      duckLocation.x = gameScreenSize.width - 140
+   if (duckLocation.x > gameScreenSize.width - 142) {
+      duckLocation.x = gameScreenSize.width - 142
    } if (duckLocation.x < 0) {
       duckLocation.x = 0
-   } if (duckLocation.y > gameScreenSize.height - 138) {
-      duckLocation.y = gameScreenSize.height - 138
+   } if (duckLocation.y > gameScreenSize.height - 140) {
+      duckLocation.y = gameScreenSize.height - 140
    } if (duckLocation.y < 0) {
       duckLocation.y = 0
    } if (x<0) {
