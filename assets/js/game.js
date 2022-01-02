@@ -1,7 +1,6 @@
 const duck = document.getElementById('duck');
 const duckScore = document.getElementById('score-duck_count');
 const hunterScore = document.getElementById('score-hunter');
-// const resetButton = document.getElementById('button-reset');
 const newGameButton = document.getElementById('button-new_game');
 const timerElement = document.getElementById('timer');
 const results = document.getElementById('score-results');
@@ -23,7 +22,7 @@ var currentKeyPressed = {
    shift: false
 };
 
-//reset l'état de toutes les touches
+// reset l'état de toutes les touches
 function resetKeyPressed() {
    currentKeyPressed.up = false,
    currentKeyPressed.down = false,
@@ -94,7 +93,7 @@ function newGame() {
    duckLocation.y = Math.floor(Math.random() * (775 - 1 + 1))
    duck.style.transform = 'translate('+duckLocation.x+'px,'+duckLocation.y+'px)'
 
-   // on cache le bandeau d'affichage des résultats
+   // on cache le bandeau d'affichage du résultat final
    results.style.display = 'none'
 
    // initialisation graphique du timer
@@ -169,7 +168,7 @@ function duckPosition(x,y) {
 //    gunsound.play();
 //  });
 
-// évènements qui écoutent les inputs de la souris et qui appellent une fonction selon l'endroit cliqué (tir sur canard ou reset du timer)
+// évènements qui écoutent les inputs de la souris et qui appellent une fonction selon l'endroit cliqué (tir sur canard ou nouvelle partie)
 duck.addEventListener('mousedown', () => {
    hunterHit();
 });
@@ -186,9 +185,10 @@ function hunterHit() {
 
 // on incrémente de 10 points le score du canard toutes les 10 secondes
 var duckTimedScore = setInterval(function(){
-   duckScoreCount += 10
-   duckScore.textContent = duckScoreCount
-},10000);
+   if (!gameOver) {
+      duckScoreCount += 10
+      duckScore.textContent = duckScoreCount
+}},10000);
 
 
 
