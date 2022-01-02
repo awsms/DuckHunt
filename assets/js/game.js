@@ -161,6 +161,7 @@ function newGame() {
 
       // fin de partie lorsqu'il reste 0 seconde au timer 
       if (remainingTime === 0) {
+         duckScore.textContent = (duckScoreCount += 10);
          clearInterval(timer);
          whoWins(duckScoreCount, hunterScoreCount);
          gameOver = true;
