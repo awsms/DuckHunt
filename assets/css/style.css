@@ -114,10 +114,6 @@ body {
    font-family: 'Kongtext';
 }
 
-#results {
-   color: blue !important;
-}
-
 #new-game-sfx {
    display: none;
 }

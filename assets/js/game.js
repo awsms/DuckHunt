@@ -7,9 +7,6 @@ const newGameButton = document.getElementById('button-new_game');
 const timerElement = document.getElementById('score-timer');
 const results = document.getElementById('score-results');
 
-// var toast = document.getElementById('new-game-sfx');
-// toast.play()
-
 // initialisation du timer
 var timer = 0;
 
