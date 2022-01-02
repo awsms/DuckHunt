@@ -12,8 +12,8 @@ var timer = 0;
 
 // initialisation des scores du joueur canard/chasseur et du gameover
 var gameOver = false;
-hunterScoreCount = 0;
-duckScoreCount = 0;
+var hunterScoreCount = 0;
+var duckScoreCount = 0;
 
 // endroit où se trouve le canard sur les axes X/Y
 var duckLocation = {
@@ -236,7 +236,7 @@ function hunterHit() {
 function whoWins(duckScoreCount, hunterScoreCount) {
    results.style.display = "block";
    if (duckScoreCount > hunterScoreCount) {
-      results.textContent = "Le cannard l'emporte!";
+      results.textContent = "Le canard l'emporte!";
       playSFX(duckWinsSFX);
    } else if (duckScoreCount < hunterScoreCount) {
       results.textContent = "Le chasseur l'emporte!";
