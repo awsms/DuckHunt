@@ -4,7 +4,7 @@ const duckScore = document.getElementById('score-duck_count');
 const gameScreen = document.getElementById('game-screen');
 const hunterScore = document.getElementById('score-hunter');
 const newGameButton = document.getElementById('button-new_game');
-const timerElement = document.getElementById('timer');
+const timerElement = document.getElementById('score-timer');
 const results = document.getElementById('score-results');
 
 // initialisation du timer
